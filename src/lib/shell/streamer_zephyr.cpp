@@ -48,8 +48,12 @@ ssize_t streamer_zephyr_write(streamer_t * streamer, const char * buffer, size_t
 {
     ARG_UNUSED(streamer);
 
+#if defined(CONFIG_SHELL)
     if (sShellInstance)
         shell_fprintf(sShellInstance, SHELL_NORMAL, "%.*s", length, buffer);
+#else
+    ARG_UNUSED(buffer);
+#endif
 
     return length;
 }
